@@ -10,16 +10,16 @@ export default function Message({ message }) {
           isUser ? 'flex-row-reverse' : 'flex-row'
         }`}
       >
-        {/* Avatar - etwas kleiner auf Mobile */}
+        {/* Avatar */}
         <div
-          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex-shrink-0 flex items-center justify-center ${
+          className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex-shrink-0 flex items-center justify-center shadow-md ${
             isUser
-              ? 'bg-gradient-to-br from-orange-400 to-orange-500'
-              : 'bg-gradient-to-br from-sky-500 to-sky-600'
+              ? 'bg-gray-700'
+              : 'bg-gradient-to-br from-teal-500 to-green-500'
           }`}
         >
           {isUser ? (
-            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
                 d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -27,7 +27,7 @@ export default function Message({ message }) {
               />
             </svg>
           ) : (
-            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -40,9 +40,9 @@ export default function Message({ message }) {
 
         {/* Message Bubble */}
         <div
-          className={`px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl ${
+          className={`px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl ${
             isUser
-              ? 'bg-gradient-to-br from-sky-500 to-sky-600 text-white rounded-br-md'
+              ? 'bg-gray-700 text-white rounded-br-md'
               : 'bg-white border border-gray-200 text-gray-800 rounded-bl-md shadow-sm'
           }`}
         >

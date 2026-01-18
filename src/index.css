@@ -1,14 +1,31 @@
 @import "tailwindcss";
 
-/* Custom Styles for Berufsberater Chatbot - intojob.de inspired */
+/* ============================================
+   INTOJOB.DE DESIGN SYSTEM
+   ============================================ */
+
 :root {
-  --primary: #0ea5e9;
-  --primary-dark: #0284c7;
-  --secondary: #f97316;
-  --background: #f8fafc;
+  /* Primary Colors - Intojob Green */
+  --primary: #22c55e;
+  --primary-dark: #16a34a;
+  --primary-light: #4ade80;
+
+  /* Gradient Colors */
+  --gradient-start: #14b8a6; /* Teal */
+  --gradient-end: #22c55e;   /* Green */
+
+  /* Neutrals */
+  --background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
   --surface: #ffffff;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-light: #ffffff;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 * {
@@ -22,21 +39,18 @@
    ============================================ */
 
 html {
-  /* Prevent font scaling on orientation change (iOS) */
   -webkit-text-size-adjust: 100%;
-  /* Smooth scrolling */
   scroll-behavior: smooth;
 }
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: var(--background);
+  background: linear-gradient(135deg, #14b8a6 0%, #22c55e 100%);
+  background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
-  min-height: 100dvh; /* Dynamic viewport height for mobile */
-  /* Prevent pull-to-refresh on mobile */
+  min-height: 100dvh;
   overscroll-behavior-y: contain;
-  /* Improve touch scrolling */
   -webkit-overflow-scrolling: touch;
 }
 
@@ -48,7 +62,57 @@ body {
 }
 
 /* ============================================
-   SAFE AREA SUPPORT (iPhone Notch, etc.)
+   INTOJOB GRADIENT BACKGROUND
+   ============================================ */
+
+.intojob-gradient {
+  background: linear-gradient(135deg, #14b8a6 0%, #22c55e 100%);
+}
+
+.intojob-gradient-text {
+  background: linear-gradient(135deg, #14b8a6 0%, #22c55e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   INTOJOB CARD STYLES
+   ============================================ */
+
+.intojob-card {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-xl);
+}
+
+/* ============================================
+   INTOJOB BUTTON STYLES
+   ============================================ */
+
+.intojob-btn {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.intojob-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.intojob-btn:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   SAFE AREA SUPPORT
    ============================================ */
 
 .safe-area-top {
@@ -59,34 +123,23 @@ body {
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
-.safe-area-left {
-  padding-left: env(safe-area-inset-left, 0);
-}
-
-.safe-area-right {
-  padding-right: env(safe-area-inset-right, 0);
-}
-
 /* ============================================
    TOUCH OPTIMIZATION
    ============================================ */
 
-/* Prevent accidental double-tap zoom on buttons */
 button,
 [role="button"],
 .touch-manipulation {
   touch-action: manipulation;
 }
 
-/* Better tap highlighting on mobile */
 @media (hover: none) {
   button:active,
   [role="button"]:active {
-    opacity: 0.8;
+    opacity: 0.9;
   }
 }
 
-/* Remove tap highlight on iOS */
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -95,7 +148,6 @@ button,
    INPUT OPTIMIZATION
    ============================================ */
 
-/* Prevent zoom on input focus (iOS) - use 16px minimum */
 input,
 textarea,
 select {
@@ -110,7 +162,6 @@ select {
   }
 }
 
-/* Better focus states for mobile */
 input:focus,
 textarea:focus,
 select:focus {
@@ -121,7 +172,6 @@ select:focus {
    SCROLLBAR STYLING
    ============================================ */
 
-/* Hide scrollbars on mobile for cleaner look */
 @media (max-width: 639px) {
   ::-webkit-scrollbar {
     width: 0;
@@ -129,7 +179,6 @@ select:focus {
   }
 }
 
-/* Desktop scrollbar styling */
 @media (min-width: 640px) {
   ::-webkit-scrollbar {
     width: 6px;
@@ -137,15 +186,16 @@ select:focus {
 
   ::-webkit-scrollbar-track {
     background: #f1f5f9;
+    border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #22c55e;
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: #16a34a;
   }
 }
 
@@ -159,6 +209,7 @@ select:focus {
   font-weight: 600;
   margin-top: 0.75em;
   margin-bottom: 0.375em;
+  color: var(--text-primary);
 }
 
 @media (min-width: 640px) {
@@ -209,7 +260,8 @@ select:focus {
 }
 
 .markdown-content code {
-  background-color: #f1f5f9;
+  background-color: #ecfdf5;
+  color: #16a34a;
   padding: 0.125em 0.375em;
   border-radius: 0.25em;
   font-size: 0.8em;
@@ -217,10 +269,10 @@ select:focus {
 }
 
 .markdown-content pre {
-  background-color: #1e293b;
+  background-color: #1f2937;
   color: #e2e8f0;
   padding: 0.75em;
-  border-radius: 0.5em;
+  border-radius: 0.75em;
   overflow-x: auto;
   margin-bottom: 0.5em;
   font-size: 0.8em;
@@ -236,6 +288,7 @@ select:focus {
 
 .markdown-content pre code {
   background-color: transparent;
+  color: inherit;
   padding: 0;
   font-size: inherit;
 }
@@ -244,7 +297,6 @@ select:focus {
    ANIMATIONS
    ============================================ */
 
-/* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -255,14 +307,13 @@ select:focus {
   }
 }
 
-/* ============================================
-   CUSTOM BREAKPOINT FOR EXTRA SMALL SCREENS
-   ============================================ */
-
-/* xs breakpoint for very small phones */
-@media (min-width: 375px) {
-  .xs\:inline {
-    display: inline;
+/* Typing animation for bot */
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
   }
 }
 
@@ -270,12 +321,16 @@ select:focus {
    UTILITY CLASSES
    ============================================ */
 
-/* Overscroll behavior */
 .overscroll-contain {
   overscroll-behavior: contain;
 }
 
-/* Hide on mobile, show on tablet+ */
+@media (min-width: 375px) {
+  .xs\:inline {
+    display: inline;
+  }
+}
+
 .hidden-mobile {
   display: none;
 }
@@ -286,7 +341,6 @@ select:focus {
   }
 }
 
-/* Show only on mobile */
 .mobile-only {
   display: block;
 }

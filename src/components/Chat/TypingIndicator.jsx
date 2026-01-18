@@ -1,10 +1,10 @@
 export default function TypingIndicator() {
   return (
     <div className="flex justify-start mb-4">
-      <div className="flex items-start gap-3">
-        {/* Avatar */}
-        <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-sky-500 to-sky-600">
-          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="flex items-start gap-2 sm:gap-3">
+        {/* Avatar - Intojob Green Gradient */}
+        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-teal-500 to-green-500 shadow-md">
+          <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -15,11 +15,20 @@ export default function TypingIndicator() {
         </div>
 
         {/* Typing Bubble */}
-        <div className="px-4 py-3 rounded-2xl rounded-bl-md bg-white border border-gray-200 shadow-sm">
-          <div className="flex items-center gap-1">
-            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+        <div className="px-5 py-4 rounded-2xl rounded-bl-md bg-white border border-gray-200 shadow-sm">
+          <div className="flex items-center gap-1.5">
+            <div
+              className="w-2.5 h-2.5 bg-green-500 rounded-full animate-bounce"
+              style={{ animationDelay: '0ms', animationDuration: '0.6s' }}
+            ></div>
+            <div
+              className="w-2.5 h-2.5 bg-green-500 rounded-full animate-bounce"
+              style={{ animationDelay: '150ms', animationDuration: '0.6s' }}
+            ></div>
+            <div
+              className="w-2.5 h-2.5 bg-green-500 rounded-full animate-bounce"
+              style={{ animationDelay: '300ms', animationDuration: '0.6s' }}
+            ></div>
           </div>
         </div>
       </div>

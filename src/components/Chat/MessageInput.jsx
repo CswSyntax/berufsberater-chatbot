@@ -14,7 +14,6 @@ export default function MessageInput({ onSend, onFileUpload, isLoading, uploadin
     setMessage('');
     setFiles([]);
 
-    // Reset textarea height
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
     }
@@ -31,7 +30,6 @@ export default function MessageInput({ onSend, onFileUpload, isLoading, uploadin
       }
     }
 
-    // Reset file input
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -41,27 +39,24 @@ export default function MessageInput({ onSend, onFileUpload, isLoading, uploadin
     setFiles(prev => prev.filter((_, i) => i !== index));
   };
 
-  // Auto-resize textarea
   const handleTextareaChange = (e) => {
     setMessage(e.target.value);
-
-    // Auto-resize
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
   };
 
   return (
-    <div className="bg-white border-t border-gray-200 px-3 sm:px-4 py-3 sm:py-4 safe-area-bottom">
+    <div className="bg-white border-t border-gray-100 px-4 sm:px-6 py-4 sm:py-5">
       {/* File Preview */}
       {files.length > 0 && (
-        <div className="mb-2 sm:mb-3 flex flex-wrap gap-1.5 sm:gap-2">
+        <div className="mb-3 flex flex-wrap gap-2">
           {files.map((file, index) => (
             <div
               key={index}
-              className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-gray-100 rounded-lg text-xs sm:text-sm"
+              className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-full text-xs sm:text-sm"
             >
-              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -69,13 +64,13 @@ export default function MessageInput({ onSend, onFileUpload, isLoading, uploadin
                   d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                 />
               </svg>
-              <span className="text-gray-700 max-w-[100px] sm:max-w-[150px] truncate">{file.name}</span>
+              <span className="text-green-700 max-w-[100px] sm:max-w-[150px] truncate font-medium">{file.name}</span>
               <button
                 type="button"
                 onClick={() => removeFile(index)}
-                className="text-gray-400 hover:text-gray-600 active:text-gray-800 p-0.5 touch-manipulation"
+                className="text-green-500 hover:text-green-700 active:text-green-800 p-0.5 touch-manipulation"
               >
-                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -86,7 +81,7 @@ export default function MessageInput({ onSend, onFileUpload, isLoading, uploadin
 
       {/* Uploading indicator */}
       {uploadingFile && (
-        <div className="mb-2 sm:mb-3 flex items-center gap-2 text-xs sm:text-sm text-gray-500">
+        <div className="mb-3 flex items-center gap-2 text-sm text-green-600">
           <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -110,10 +105,10 @@ export default function MessageInput({ onSend, onFileUpload, isLoading, uploadin
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={isLoading || uploadingFile}
-          className="flex-shrink-0 p-2 sm:p-2.5 text-gray-400 hover:text-gray-600 active:text-gray-800 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+          className="flex-shrink-0 p-2.5 sm:p-3 text-gray-400 hover:text-green-600 active:text-green-700 hover:bg-green-50 active:bg-green-100 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
           title="Datei anhängen"
         >
-          <svg className="w-5 h-5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -138,24 +133,24 @@ export default function MessageInput({ onSend, onFileUpload, isLoading, uploadin
             placeholder="Schreibe eine Nachricht..."
             disabled={isLoading}
             rows={1}
-            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 border border-gray-200 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-gray-800 placeholder-gray-400 text-base sm:text-sm leading-normal"
-            style={{ maxHeight: '120px', minHeight: '44px' }}
+            className="w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-gray-100 border-2 border-transparent rounded-2xl resize-none focus:outline-none focus:border-green-400 focus:bg-white disabled:opacity-50 disabled:cursor-not-allowed text-gray-800 placeholder-gray-400 text-base sm:text-sm leading-normal transition-all"
+            style={{ maxHeight: '120px', minHeight: '48px' }}
           />
         </div>
 
-        {/* Send Button */}
+        {/* Send Button - Intojob Green */}
         <button
           type="submit"
           disabled={isLoading || (!message.trim() && files.length === 0)}
-          className="flex-shrink-0 p-2.5 sm:p-2.5 bg-gradient-to-r from-sky-500 to-sky-600 text-white rounded-xl hover:from-sky-600 hover:to-sky-700 active:from-sky-700 active:to-sky-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm touch-manipulation"
+          className="flex-shrink-0 p-3 sm:p-3.5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 active:from-green-700 active:to-green-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl touch-manipulation"
         >
           {isLoading ? (
-            <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6 animate-spin" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
           ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
           )}

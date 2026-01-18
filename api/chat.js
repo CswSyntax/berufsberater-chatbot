@@ -1,11 +1,5 @@
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID;
-
 export default async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -19,6 +13,23 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  // Check environment variables
+  if (!process.env.OPENAI_API_KEY) {
+    console.error('OPENAI_API_KEY is not set');
+    return res.status(500).json({ error: 'Server configuration error: API key missing' });
+  }
+
+  if (!process.env.OPENAI_ASSISTANT_ID) {
+    console.error('OPENAI_ASSISTANT_ID is not set');
+    return res.status(500).json({ error: 'Server configuration error: Assistant ID missing' });
+  }
+
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+
+  const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID;
 
   try {
     const { threadId, message, fileIds } = req.body;
@@ -47,16 +58,33 @@ export default async function handler(req, res) {
       assistant_id: ASSISTANT_ID,
     });
 
-    // Poll for completion
+    // Poll for completion with timeout
     let runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
+    let attempts = 0;
+    const maxAttempts = 60; // 60 seconds timeout
 
-    while (runStatus.status !== 'completed' && runStatus.status !== 'failed') {
+    while (runStatus.status !== 'completed' && runStatus.status !== 'failed' && runStatus.status !== 'cancelled') {
+      if (attempts >= maxAttempts) {
+        throw new Error('Request timeout - assistant took too long to respond');
+      }
+
       await new Promise(resolve => setTimeout(resolve, 1000));
       runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
+      attempts++;
 
-      if (runStatus.status === 'failed') {
-        throw new Error('Assistant run failed');
+      if (runStatus.status === 'requires_action') {
+        // Handle tool calls if needed
+        console.log('Run requires action:', runStatus.required_action);
       }
+    }
+
+    if (runStatus.status === 'failed') {
+      console.error('Run failed:', runStatus.last_error);
+      throw new Error(`Assistant run failed: ${runStatus.last_error?.message || 'Unknown error'}`);
+    }
+
+    if (runStatus.status === 'cancelled') {
+      throw new Error('Assistant run was cancelled');
     }
 
     // Get the assistant's response
@@ -82,7 +110,10 @@ export default async function handler(req, res) {
       messageId: assistantMessage.id,
     });
   } catch (error) {
-    console.error('Error in chat:', error);
-    return res.status(500).json({ error: 'Failed to process message' });
+    console.error('Error in chat:', error.message, error.stack);
+    return res.status(500).json({
+      error: 'Failed to process message',
+      details: error.message
+    });
   }
 }
