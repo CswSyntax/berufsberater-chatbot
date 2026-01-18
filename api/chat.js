@@ -44,10 +44,20 @@ export default async function handler(req, res) {
 
     const { threadId, message, fileIds } = body || {};
 
-    console.log('Received request:', { threadId, message: message?.substring(0, 50), fileIds });
+    console.log('Received request body type:', typeof req.body);
+    console.log('Received request body:', JSON.stringify(req.body));
+    console.log('Parsed body:', JSON.stringify(body));
+    console.log('Extracted values:', { threadId, message: message?.substring(0, 50), fileIds });
 
     if (!threadId) {
-      return res.status(400).json({ error: 'threadId is required' });
+      return res.status(400).json({
+        error: 'threadId is required',
+        debug: {
+          bodyType: typeof req.body,
+          bodyKeys: body ? Object.keys(body) : null,
+          rawBody: typeof req.body === 'string' ? req.body.substring(0, 200) : null
+        }
+      });
     }
 
     if (!message) {
@@ -81,7 +91,7 @@ export default async function handler(req, res) {
       assistant_id: ASSISTANT_ID,
     });
 
-    console.log('Run created:', run.id);
+    console.log('Run created:', { runId: run.id, threadId: threadId, status: run.status });
 
     // Poll for completion with timeout
     let runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
