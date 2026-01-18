@@ -69,6 +69,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid threadId format' });
     }
 
+    // Store threadId in a constant to prevent any mutation issues
+    const currentThreadId = String(threadId);
+    console.log('Using thread ID:', currentThreadId);
+
     // Prepare message content
     const messageContent = [{ type: 'text', text: message }];
 
@@ -78,53 +82,33 @@ export default async function handler(req, res) {
       : [];
 
     // Add message to thread
-    console.log('Adding message to thread:', threadId);
-    await openai.beta.threads.messages.create(threadId, {
+    console.log('Adding message to thread:', currentThreadId);
+    await openai.beta.threads.messages.create(currentThreadId, {
       role: 'user',
       content: messageContent,
       attachments: attachments.length > 0 ? attachments : undefined,
     });
 
-    // Run the assistant
-    console.log('Creating run with assistant:', ASSISTANT_ID);
-    const run = await openai.beta.threads.runs.create(threadId, {
+    // Run the assistant with automatic polling
+    console.log('Creating and polling run with assistant:', ASSISTANT_ID, 'for thread:', currentThreadId);
+
+    const run = await openai.beta.threads.runs.createAndPoll(currentThreadId, {
       assistant_id: ASSISTANT_ID,
     });
 
-    console.log('Run created:', { runId: run.id, threadId: threadId, status: run.status });
+    console.log('Run completed:', { runId: run.id, status: run.status });
 
-    // Poll for completion with timeout
-    let runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
-    let attempts = 0;
-    const maxAttempts = 60; // 60 seconds timeout
-
-    while (runStatus.status !== 'completed' && runStatus.status !== 'failed' && runStatus.status !== 'cancelled') {
-      if (attempts >= maxAttempts) {
-        throw new Error('Request timeout - assistant took too long to respond');
-      }
-
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
-      attempts++;
-
-      console.log('Run status:', runStatus.status, 'attempt:', attempts);
-
-      if (runStatus.status === 'requires_action') {
-        console.log('Run requires action:', runStatus.required_action);
-      }
+    if (run.status === 'failed') {
+      console.error('Run failed:', run.last_error);
+      throw new Error(`Assistant run failed: ${run.last_error?.message || 'Unknown error'}`);
     }
 
-    if (runStatus.status === 'failed') {
-      console.error('Run failed:', runStatus.last_error);
-      throw new Error(`Assistant run failed: ${runStatus.last_error?.message || 'Unknown error'}`);
-    }
-
-    if (runStatus.status === 'cancelled') {
-      throw new Error('Assistant run was cancelled');
+    if (run.status !== 'completed') {
+      throw new Error(`Run ended with unexpected status: ${run.status}`);
     }
 
     // Get the assistant's response
-    const messages = await openai.beta.threads.messages.list(threadId, {
+    const messages = await openai.beta.threads.messages.list(currentThreadId, {
       order: 'desc',
       limit: 1,
     });
