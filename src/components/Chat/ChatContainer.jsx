@@ -18,13 +18,13 @@ export default function ChatContainer({
   }, [messages, isLoading]);
 
   return (
-    <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full bg-white rounded-3xl shadow-2xl overflow-hidden">
-      {/* Chat Header with New Chat button */}
-      <div className="px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center border-b border-gray-100">
-        <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Chat</h2>
+    <div className="flex-1 flex flex-col bg-white rounded-3xl shadow-2xl overflow-hidden">
+      {/* Chat Header */}
+      <div className="px-5 sm:px-8 py-4 sm:py-5 flex justify-between items-center border-b border-gray-100 bg-white">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-800">Chat</h2>
         <button
           onClick={onNewChat}
-          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-sm font-medium text-green-600 hover:text-green-700 hover:bg-green-50 active:bg-green-100 rounded-full transition-colors touch-manipulation"
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-green-600 hover:text-green-700 hover:bg-green-50 active:bg-green-100 rounded-full transition-colors touch-manipulation"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -34,31 +34,31 @@ export default function ChatContainer({
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 overscroll-contain bg-gray-50/50">
+      <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-6 overscroll-contain bg-gradient-to-b from-gray-50/80 to-white">
         {messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-center px-2 sm:px-4">
-            {/* Welcome Icon - Intojob Green */}
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-teal-500 to-green-500 rounded-3xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg">
-              <svg className="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="h-full flex flex-col items-center justify-center text-center px-4">
+            {/* Welcome Icon */}
+            <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-teal-400 to-green-500 rounded-3xl flex items-center justify-center mb-6 shadow-xl">
+              <svg className="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  strokeWidth={1.5}
+                  d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z"
                 />
               </svg>
             </div>
 
             {/* Welcome Text */}
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">
               Willkommen!
             </h2>
-            <p className="text-sm sm:text-base text-gray-500 max-w-md mb-6 sm:mb-8">
+            <p className="text-base sm:text-lg text-gray-500 max-w-lg mb-8">
               Ich bin dein KI-Assistent für alle Fragen rund um Ausbildung, Praktikum und Berufsorientierung.
             </p>
 
-            {/* Suggestion Buttons - Intojob Green Style */}
-            <div className="w-full max-w-sm sm:max-w-lg flex flex-col sm:flex-row sm:flex-wrap justify-center gap-2 sm:gap-3">
+            {/* Suggestion Buttons */}
+            <div className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
                 'Welche Ausbildungen passen zu mir?',
                 'Was ist ein Praktikum?',
@@ -67,7 +67,7 @@ export default function ChatContainer({
                 <button
                   key={index}
                   onClick={() => onSend(suggestion, [])}
-                  className="w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-white border-2 border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:border-green-400 hover:text-green-600 active:bg-green-50 transition-all touch-manipulation shadow-sm"
+                  className="px-5 py-4 bg-white border-2 border-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:border-green-400 hover:text-green-600 hover:shadow-md active:bg-green-50 transition-all touch-manipulation"
                 >
                   {suggestion}
                 </button>

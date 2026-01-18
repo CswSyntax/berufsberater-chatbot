@@ -4,22 +4,22 @@ export default function Message({ message }) {
   const isUser = message.role === 'user';
 
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-3 sm:mb-4`}>
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4 sm:mb-5`}>
       <div
-        className={`flex items-start gap-2 sm:gap-3 max-w-[90%] sm:max-w-[80%] ${
+        className={`flex items-start gap-3 max-w-[85%] sm:max-w-[75%] ${
           isUser ? 'flex-row-reverse' : 'flex-row'
         }`}
       >
         {/* Avatar */}
         <div
-          className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex-shrink-0 flex items-center justify-center shadow-md ${
+          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex-shrink-0 flex items-center justify-center shadow-md ${
             isUser
               ? 'bg-gray-700'
-              : 'bg-gradient-to-br from-teal-500 to-green-500'
+              : 'bg-gradient-to-br from-teal-400 to-green-500'
           }`}
         >
           {isUser ? (
-            <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
                 d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -27,7 +27,7 @@ export default function Message({ message }) {
               />
             </svg>
           ) : (
-            <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -40,31 +40,31 @@ export default function Message({ message }) {
 
         {/* Message Bubble */}
         <div
-          className={`px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl ${
+          className={`px-5 py-4 rounded-2xl ${
             isUser
-              ? 'bg-gray-700 text-white rounded-br-md'
+              ? 'bg-gray-800 text-white rounded-br-md'
               : 'bg-white border border-gray-200 text-gray-800 rounded-bl-md shadow-sm'
           }`}
         >
           {isUser ? (
-            <p className="text-sm leading-relaxed break-words">{message.content}</p>
+            <p className="text-sm sm:text-base leading-relaxed break-words">{message.content}</p>
           ) : (
-            <div className="markdown-content text-sm leading-relaxed break-words">
+            <div className="markdown-content text-sm sm:text-base leading-relaxed break-words">
               <ReactMarkdown>{message.content}</ReactMarkdown>
             </div>
           )}
 
           {/* File attachments */}
           {message.files && message.files.length > 0 && (
-            <div className={`mt-2 pt-2 border-t ${isUser ? 'border-white/20' : 'border-gray-200'}`}>
+            <div className={`mt-3 pt-3 border-t ${isUser ? 'border-white/20' : 'border-gray-200'}`}>
               {message.files.map((file, index) => (
                 <div
                   key={index}
-                  className={`flex items-center gap-1.5 sm:gap-2 text-xs ${
+                  className={`flex items-center gap-2 text-xs sm:text-sm ${
                     isUser ? 'text-white/80' : 'text-gray-500'
                   }`}
                 >
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"

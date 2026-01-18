@@ -15,13 +15,16 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Gradient Background is set in CSS */}
+      {/* Full-screen gradient background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-teal-400 via-teal-500 to-green-500 -z-10" />
+
+      {/* Header */}
       <Header />
 
       {/* Error Banner */}
       {error && (
-        <div className="mx-3 sm:mx-4 mt-2">
-          <div className="max-w-4xl mx-auto bg-red-500/90 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg">
+        <div className="px-4 sm:px-6 lg:px-8 mt-2">
+          <div className="max-w-5xl mx-auto bg-red-500/90 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg">
             <div className="flex items-center gap-2 text-white text-sm">
               <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -37,21 +40,23 @@ function App() {
         </div>
       )}
 
-      {/* Main Chat Area */}
-      <main className="flex-1 flex flex-col overflow-hidden px-3 sm:px-4 py-3 sm:py-4">
-        <ChatContainer
-          messages={messages}
-          isLoading={isLoading}
-          uploadingFile={uploadingFile}
-          onSend={sendMessage}
-          onFileUpload={uploadFile}
-          onNewChat={startNewChat}
-        />
+      {/* Main Chat Area - Centered Card */}
+      <main className="flex-1 flex flex-col px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <div className="flex-1 flex flex-col max-w-5xl w-full mx-auto">
+          <ChatContainer
+            messages={messages}
+            isLoading={isLoading}
+            uploadingFile={uploadingFile}
+            onSend={sendMessage}
+            onFileUpload={uploadFile}
+            onNewChat={startNewChat}
+          />
+        </div>
       </main>
 
       {/* Footer */}
       <footer className="py-3 safe-area-bottom">
-        <div className="max-w-4xl mx-auto px-4 text-center text-xs text-white/70">
+        <div className="text-center text-xs text-white/80">
           Powered by OpenAI | Berufsberatung für Schüler
         </div>
       </footer>
