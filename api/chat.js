@@ -32,10 +32,31 @@ export default async function handler(req, res) {
   const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID;
 
   try {
-    const { threadId, message, fileIds } = req.body;
+    // Parse body - handle both string and object
+    let body = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch (e) {
+        return res.status(400).json({ error: 'Invalid JSON in request body' });
+      }
+    }
 
-    if (!threadId || !message) {
-      return res.status(400).json({ error: 'threadId and message are required' });
+    const { threadId, message, fileIds } = body || {};
+
+    console.log('Received request:', { threadId, message: message?.substring(0, 50), fileIds });
+
+    if (!threadId) {
+      return res.status(400).json({ error: 'threadId is required' });
+    }
+
+    if (!message) {
+      return res.status(400).json({ error: 'message is required' });
+    }
+
+    // Validate threadId format
+    if (!threadId.startsWith('thread_')) {
+      return res.status(400).json({ error: 'Invalid threadId format' });
     }
 
     // Prepare message content
@@ -47,6 +68,7 @@ export default async function handler(req, res) {
       : [];
 
     // Add message to thread
+    console.log('Adding message to thread:', threadId);
     await openai.beta.threads.messages.create(threadId, {
       role: 'user',
       content: messageContent,
@@ -54,9 +76,12 @@ export default async function handler(req, res) {
     });
 
     // Run the assistant
+    console.log('Creating run with assistant:', ASSISTANT_ID);
     const run = await openai.beta.threads.runs.create(threadId, {
       assistant_id: ASSISTANT_ID,
     });
+
+    console.log('Run created:', run.id);
 
     // Poll for completion with timeout
     let runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
@@ -72,8 +97,9 @@ export default async function handler(req, res) {
       runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
       attempts++;
 
+      console.log('Run status:', runStatus.status, 'attempt:', attempts);
+
       if (runStatus.status === 'requires_action') {
-        // Handle tool calls if needed
         console.log('Run requires action:', runStatus.required_action);
       }
     }
@@ -104,6 +130,8 @@ export default async function handler(req, res) {
       .filter(c => c.type === 'text')
       .map(c => c.text.value)
       .join('\n');
+
+    console.log('Response generated successfully');
 
     return res.status(200).json({
       message: textContent,
