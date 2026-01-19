@@ -34,10 +34,10 @@ export default function MessageBubble({ message }) {
         </p>
 
         <div
-          className={`inline-block p-2 rounded-[32px] ${
+          className={`inline-block p-3 rounded-[32px] ${
             isUser
-              ? 'bg-emerald-100 border border-emerald-200'
-              : 'bg-gray-50 border border-gray-200'
+              ? 'bg-emerald-100 border-2 border-emerald-300'
+              : 'bg-gray-100 border-2 border-gray-300'
           }`}
           style={{ maxWidth: '90%' }}
         >
