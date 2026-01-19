@@ -36,8 +36,8 @@ export default function MessageBubble({ message }) {
         <div
           className={`inline-block text-left rounded-2xl px-4 py-3 ${
             isUser
-              ? 'bg-emerald-600 text-white rounded-tr-sm'
-              : 'bg-white border border-gray-200 text-gray-800 rounded-tl-sm shadow-sm'
+              ? 'bg-emerald-600 text-white'
+              : 'bg-white text-gray-800 shadow-md'
           }`}
           style={{ maxWidth: '85%' }}
         >
