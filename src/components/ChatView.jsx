@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Plus, Sparkles, FileText, Briefcase } from 'lucide-react';
+import { Plus, Sparkles, Briefcase } from 'lucide-react';
 import MessageBubble from './MessageBubble';
 import ChatInput from './ChatInput';
 
@@ -80,29 +80,9 @@ export default function ChatView({
                 <h2 className="text-2xl font-semibold text-gray-900 mb-2">
                   Wie kann ich dir helfen?
                 </h2>
-                <p className="text-gray-500 mb-8">
+                <p className="text-gray-500">
                   Ich beantworte deine Fragen zu Ausbildung, Praktikum und Berufswahl.
                 </p>
-
-                <div className="space-y-3">
-                  {[
-                    { icon: Briefcase, text: 'Welche Ausbildung passt zu mir?' },
-                    { icon: FileText, text: 'Wie schreibe ich eine Bewerbung?' },
-                    { icon: MessageSquare, text: 'Was erwartet mich im Vorstellungsgespraech?' },
-                  ].map((item, i) => (
-                    <motion.button
-                      key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 + i * 0.05 }}
-                      onClick={() => onSend(item.text, [])}
-                      className="flex items-center gap-3 w-full px-4 py-3.5 text-left text-sm text-gray-700 bg-white border border-gray-200 hover:border-emerald-400 hover:bg-emerald-50 rounded-xl transition-all shadow-sm"
-                    >
-                      <item.icon className="w-5 h-5 text-emerald-600" />
-                      <span className="font-medium">{item.text}</span>
-                    </motion.button>
-                  ))}
-                </div>
               </motion.div>
             </div>
           ) : (
