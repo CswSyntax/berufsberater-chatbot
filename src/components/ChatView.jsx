@@ -96,10 +96,10 @@ export default function ChatView({
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex justify-start"
+                    className="flex py-2 justify-start"
                   >
-                    <div className="p-3 rounded-3xl border-2 bg-gray-100 border-gray-300">
-                      <div className="px-6 py-4 rounded-2xl bg-white shadow-sm flex items-center gap-1.5">
+                    <div className="p-4 rounded-[28px] bg-gray-100 border-2 border-gray-200">
+                      <div className="px-5 py-3 rounded-[20px] bg-white shadow-sm flex items-center gap-1.5">
                         <motion.span
                           animate={{ opacity: [0.4, 1, 0.4] }}
                           transition={{ duration: 1, repeat: Infinity, delay: 0 }}
@@ -116,7 +116,7 @@ export default function ChatView({
                           className="w-2 h-2 bg-emerald-500 rounded-full"
                         />
                       </div>
-                      <p className="text-xs font-medium mt-2 px-2 text-left text-gray-600">
+                      <p className="text-xs font-medium mt-2 px-1 text-left text-gray-500">
                         Berufsberater
                       </p>
                     </div>
