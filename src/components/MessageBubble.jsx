@@ -19,7 +19,10 @@ export default function MessageBubble({ message }) {
         }`}
       >
         {isUser ? (
-          <p className="text-[15px] leading-relaxed whitespace-pre-wrap px-2 py-1">
+          <p
+            className="text-[15px] leading-relaxed whitespace-pre-wrap"
+            style={{ padding: '8px 12px' }}
+          >
             {message.content}
           </p>
         ) : (
