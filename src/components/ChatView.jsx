@@ -96,27 +96,29 @@ export default function ChatView({
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-start gap-4 py-4"
+                    className="flex justify-start"
                   >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center flex-shrink-0">
-                      <Sparkles className="w-4 h-4 text-white" />
-                    </div>
-                    <div className="flex items-center gap-1.5 pt-2">
-                      <motion.span
-                        animate={{ opacity: [0.4, 1, 0.4] }}
-                        transition={{ duration: 1, repeat: Infinity, delay: 0 }}
-                        className="w-2 h-2 bg-emerald-500 rounded-full"
-                      />
-                      <motion.span
-                        animate={{ opacity: [0.4, 1, 0.4] }}
-                        transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
-                        className="w-2 h-2 bg-emerald-500 rounded-full"
-                      />
-                      <motion.span
-                        animate={{ opacity: [0.4, 1, 0.4] }}
-                        transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
-                        className="w-2 h-2 bg-emerald-500 rounded-full"
-                      />
+                    <div className="p-3 rounded-3xl border-2 bg-gray-100 border-gray-300">
+                      <div className="px-6 py-4 rounded-2xl bg-white shadow-sm flex items-center gap-1.5">
+                        <motion.span
+                          animate={{ opacity: [0.4, 1, 0.4] }}
+                          transition={{ duration: 1, repeat: Infinity, delay: 0 }}
+                          className="w-2 h-2 bg-emerald-500 rounded-full"
+                        />
+                        <motion.span
+                          animate={{ opacity: [0.4, 1, 0.4] }}
+                          transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
+                          className="w-2 h-2 bg-emerald-500 rounded-full"
+                        />
+                        <motion.span
+                          animate={{ opacity: [0.4, 1, 0.4] }}
+                          transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
+                          className="w-2 h-2 bg-emerald-500 rounded-full"
+                        />
+                      </div>
+                      <p className="text-xs font-medium mt-2 px-2 text-left text-gray-600">
+                        Berufsberater
+                      </p>
                     </div>
                   </motion.div>
                 )}
