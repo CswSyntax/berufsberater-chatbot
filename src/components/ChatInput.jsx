@@ -101,7 +101,8 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
       </AnimatePresence>
 
       {/* Input Area */}
-      <div className="flex items-center gap-3 p-2 bg-gray-100 rounded-2xl">
+      <div className="p-2 bg-gray-50 border border-gray-200 rounded-3xl">
+        <div className="flex items-center gap-3 p-2 bg-gray-100 rounded-2xl">
         {/* File Upload */}
         <input
           type="file"
@@ -149,6 +150,7 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
             <Send className="w-5 h-5" />
           )}
         </button>
+        </div>
       </div>
 
       <p className="mt-3 text-xs text-gray-400 text-center">
