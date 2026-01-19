@@ -27,7 +27,7 @@ export default function ChatView({
       <header className="flex-shrink-0 border-b border-gray-100">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center">
               <Briefcase className="w-4 h-4 text-white" />
             </div>
             <div>
@@ -72,7 +72,7 @@ export default function ChatView({
               transition={{ duration: 0.3 }}
               className="text-center max-w-md"
             >
-              <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-violet-500/20">
+              <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
                 <Sparkles className="w-7 h-7 text-white" />
               </div>
 
@@ -95,9 +95,9 @@ export default function ChatView({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + i * 0.05 }}
                     onClick={() => onSend(item.text, [])}
-                    className="flex items-center gap-3 w-full px-4 py-3 text-left text-sm text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors group"
+                    className="flex items-center gap-3 w-full px-4 py-3 text-left text-sm text-gray-600 bg-gray-50 hover:bg-emerald-50 rounded-xl transition-colors group"
                   >
-                    <item.icon className="w-4 h-4 text-gray-400 group-hover:text-violet-500 transition-colors" />
+                    <item.icon className="w-4 h-4 text-gray-400 group-hover:text-emerald-600 transition-colors" />
                     <span>{item.text}</span>
                   </motion.button>
                 ))}
@@ -117,24 +117,24 @@ export default function ChatView({
                   animate={{ opacity: 1, y: 0 }}
                   className="flex gap-3 py-4"
                 >
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center flex-shrink-0">
                     <Sparkles className="w-3.5 h-3.5 text-white" />
                   </div>
                   <div className="flex items-center gap-1 pt-1">
                     <motion.span
                       animate={{ opacity: [0.4, 1, 0.4] }}
                       transition={{ duration: 1, repeat: Infinity, delay: 0 }}
-                      className="w-1.5 h-1.5 bg-violet-400 rounded-full"
+                      className="w-1.5 h-1.5 bg-emerald-500 rounded-full"
                     />
                     <motion.span
                       animate={{ opacity: [0.4, 1, 0.4] }}
                       transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
-                      className="w-1.5 h-1.5 bg-violet-400 rounded-full"
+                      className="w-1.5 h-1.5 bg-emerald-500 rounded-full"
                     />
                     <motion.span
                       animate={{ opacity: [0.4, 1, 0.4] }}
                       transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
-                      className="w-1.5 h-1.5 bg-violet-400 rounded-full"
+                      className="w-1.5 h-1.5 bg-emerald-500 rounded-full"
                     />
                   </div>
                 </motion.div>

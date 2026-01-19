@@ -17,7 +17,7 @@ export default function MessageBubble({ message }) {
         className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
           isUser
             ? 'bg-gray-100'
-            : 'bg-gradient-to-br from-violet-500 to-purple-600'
+            : 'bg-gradient-to-br from-teal-500 to-emerald-600'
         }`}
       >
         {isUser ? (
@@ -29,7 +29,7 @@ export default function MessageBubble({ message }) {
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <p className={`text-xs font-medium mb-1 ${isUser ? 'text-gray-500' : 'text-violet-600'}`}>
+        <p className={`text-xs font-medium mb-1 ${isUser ? 'text-gray-500' : 'text-emerald-600'}`}>
           {isUser ? 'Du' : 'Berufsberater'}
         </p>
 
@@ -59,19 +59,19 @@ export default function MessageBubble({ message }) {
                     );
                   }
                   return (
-                    <code className="bg-violet-50 text-violet-700 px-1.5 py-0.5 rounded text-[13px]">
+                    <code className="bg-emerald-50 text-emerald-700 px-1.5 py-0.5 rounded text-[13px]">
                       {children}
                     </code>
                   );
                 },
                 pre: ({ children }) => <>{children}</>,
                 a: ({ href, children }) => (
-                  <a href={href} className="text-violet-600 hover:text-violet-800 underline" target="_blank" rel="noopener noreferrer">
+                  <a href={href} className="text-emerald-600 hover:text-emerald-800 underline" target="_blank" rel="noopener noreferrer">
                     {children}
                   </a>
                 ),
                 blockquote: ({ children }) => (
-                  <blockquote className="border-l-2 border-violet-200 pl-3 my-2 text-gray-600 italic">
+                  <blockquote className="border-l-2 border-emerald-300 pl-3 my-2 text-gray-600 italic">
                     {children}
                   </blockquote>
                 ),

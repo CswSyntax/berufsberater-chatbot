@@ -69,13 +69,13 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
                 {files.map((file, index) => (
                   <span
                     key={index}
-                    className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 bg-violet-50 text-violet-700 text-xs rounded-full"
+                    className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 bg-emerald-50 text-emerald-700 text-xs rounded-full"
                   >
                     <Paperclip className="w-3 h-3" />
                     <span className="max-w-[100px] truncate">{file.name}</span>
                     <button
                       onClick={() => setFiles((prev) => prev.filter((_, i) => i !== index))}
-                      className="p-0.5 hover:bg-violet-100 rounded-full transition-colors"
+                      className="p-0.5 hover:bg-emerald-100 rounded-full transition-colors"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -93,7 +93,7 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="mb-2 flex items-center gap-2 text-xs text-violet-600"
+              className="mb-2 flex items-center gap-2 text-xs text-emerald-600"
             >
               <Loader2 className="w-3 h-3 animate-spin" />
               <span>Wird hochgeladen...</span>
@@ -131,7 +131,7 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
               placeholder="Nachricht eingeben..."
               disabled={isLoading}
               rows={1}
-              className="w-full px-4 py-2.5 pr-12 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[15px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-violet-300 focus:ring-2 focus:ring-violet-100 transition-all disabled:opacity-50"
+              className="w-full px-4 py-2.5 pr-12 bg-gray-50 border border-gray-200 rounded-2xl resize-none text-[15px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all disabled:opacity-50"
               style={{ maxHeight: '150px', minHeight: '44px' }}
             />
 
@@ -141,7 +141,7 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
               disabled={!canSubmit}
               className={`absolute right-2 bottom-1.5 p-1.5 rounded-lg transition-all ${
                 canSubmit
-                  ? 'bg-violet-600 text-white hover:bg-violet-700 shadow-sm'
+                  ? 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm'
                   : 'bg-gray-100 text-gray-300'
               }`}
             >
