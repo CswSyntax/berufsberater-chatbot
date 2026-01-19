@@ -34,13 +34,20 @@ export default function MessageBubble({ message }) {
         </p>
 
         <div
-          className={`inline-block text-left px-8 py-5 ${
+          className={`inline-block p-2 rounded-[32px] ${
             isUser
-              ? 'bg-emerald-600 text-white rounded-[28px] rounded-tr-lg'
-              : 'bg-white text-gray-800 shadow-lg border border-gray-100 rounded-[28px] rounded-tl-lg'
+              ? 'bg-emerald-100 border border-emerald-200'
+              : 'bg-gray-50 border border-gray-200'
           }`}
           style={{ maxWidth: '90%' }}
         >
+          <div
+            className={`text-left px-8 py-5 ${
+              isUser
+                ? 'bg-emerald-600 text-white rounded-[28px]'
+                : 'bg-white text-gray-800 shadow-md rounded-[28px]'
+            }`}
+          >
           {isUser ? (
             <p className="text-base leading-relaxed whitespace-pre-wrap">{message.content}</p>
           ) : (
@@ -87,6 +94,7 @@ export default function MessageBubble({ message }) {
               </ReactMarkdown>
             </div>
           )}
+          </div>
         </div>
 
         {/* File Attachments */}
