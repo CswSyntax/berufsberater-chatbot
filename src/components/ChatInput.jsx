@@ -17,7 +17,7 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
     setFiles([]);
 
     if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = '52px';
     }
   };
 
@@ -40,7 +40,7 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
   const handleTextareaChange = (e) => {
     setMessage(e.target.value);
     const textarea = e.target;
-    textarea.style.height = 'auto';
+    textarea.style.height = '52px';
     textarea.style.height = Math.min(textarea.scrollHeight, 150) + 'px';
   };
 
@@ -101,7 +101,7 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
       </AnimatePresence>
 
       {/* Input Area */}
-      <div className="flex items-end gap-3">
+      <div className="flex items-center gap-3 p-2 bg-gray-100 rounded-2xl">
         {/* File Upload */}
         <input
           type="file"
@@ -115,34 +115,32 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={isLoading || uploadingFile}
-          className="flex-shrink-0 w-12 h-12 flex items-center justify-center text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 border border-gray-200 rounded-xl transition-colors disabled:opacity-50"
+          className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-gray-400 hover:text-emerald-600 hover:bg-white rounded-xl transition-colors disabled:opacity-50"
         >
           <Paperclip className="w-5 h-5" />
         </button>
 
         {/* Text Input */}
-        <div className="flex-1 relative">
-          <textarea
-            ref={textareaRef}
-            value={message}
-            onChange={handleTextareaChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Schreibe eine Nachricht..."
-            disabled={isLoading}
-            rows={1}
-            className="w-full px-4 py-3.5 bg-white border border-gray-200 rounded-xl resize-none text-[15px] text-gray-800 placeholder-gray-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 transition-all disabled:opacity-50"
-            style={{ maxHeight: '150px', minHeight: '52px' }}
-          />
-        </div>
+        <textarea
+          ref={textareaRef}
+          value={message}
+          onChange={handleTextareaChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Schreibe eine Nachricht..."
+          disabled={isLoading}
+          rows={1}
+          className="flex-1 px-2 py-3 bg-transparent resize-none text-[15px] text-gray-800 placeholder-gray-400 focus:outline-none disabled:opacity-50"
+          style={{ maxHeight: '150px', height: '52px' }}
+        />
 
         {/* Send Button */}
         <button
           onClick={handleSubmit}
           disabled={!canSubmit}
-          className={`flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl transition-all ${
+          className={`flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl transition-all ${
             canSubmit
-              ? 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-500/30'
-              : 'bg-gray-100 text-gray-400 border border-gray-200'
+              ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+              : 'text-gray-300'
           }`}
         >
           {isLoading ? (
