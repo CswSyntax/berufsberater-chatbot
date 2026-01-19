@@ -1,47 +1,24 @@
 import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Paperclip, Send, X, Loader2 } from 'lucide-react';
+import { Send, Loader2 } from 'lucide-react';
 
-export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFile }) {
+export default function ChatInput({ onSend, isLoading }) {
   const [message, setMessage] = useState('');
-  const [files, setFiles] = useState([]);
-  const fileInputRef = useRef(null);
   const textareaRef = useRef(null);
 
-  const handleSubmit = (e) => {
-    e?.preventDefault();
-    if ((!message.trim() && files.length === 0) || isLoading) return;
-
-    onSend(message, files);
+  const handleSubmit = () => {
+    if (!message.trim() || isLoading) return;
+    onSend(message);
     setMessage('');
-    setFiles([]);
-
     if (textareaRef.current) {
-      textareaRef.current.style.height = '52px';
-    }
-  };
-
-  const handleFileChange = async (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    if (selectedFiles.length === 0) return;
-
-    for (const file of selectedFiles) {
-      const uploadedFile = await onFileUpload(file);
-      if (uploadedFile) {
-        setFiles((prev) => [...prev, uploadedFile]);
-      }
-    }
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      textareaRef.current.style.height = '48px';
     }
   };
 
   const handleTextareaChange = (e) => {
     setMessage(e.target.value);
     const textarea = e.target;
-    textarea.style.height = '52px';
-    textarea.style.height = Math.min(textarea.scrollHeight, 150) + 'px';
+    textarea.style.height = '48px';
+    textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
   };
 
   const handleKeyDown = (e) => {
@@ -51,77 +28,11 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
     }
   };
 
-  const canSubmit = (message.trim() || files.length > 0) && !isLoading;
+  const canSubmit = message.trim() && !isLoading;
 
   return (
     <div className="py-4">
-      {/* File Preview */}
-      <AnimatePresence>
-        {files.length > 0 && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="mb-3 overflow-hidden"
-          >
-            <div className="flex flex-wrap gap-2">
-              {files.map((file, index) => (
-                <span
-                  key={index}
-                  className="inline-flex items-center gap-2 pl-3 pr-2 py-2 bg-emerald-50 text-emerald-700 text-sm rounded-lg border border-emerald-200"
-                >
-                  <Paperclip className="w-4 h-4" />
-                  <span className="max-w-[150px] truncate font-medium">{file.name}</span>
-                  <button
-                    onClick={() => setFiles((prev) => prev.filter((_, i) => i !== index))}
-                    className="p-1 hover:bg-emerald-100 rounded-full transition-colors"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Upload Progress */}
-      <AnimatePresence>
-        {uploadingFile && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="mb-3 flex items-center gap-2 text-sm text-emerald-600"
-          >
-            <Loader2 className="w-4 h-4 animate-spin" />
-            <span>Wird hochgeladen...</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Input Area */}
-      <div className="p-2 bg-gray-50 border border-gray-200 rounded-3xl">
-        <div className="flex items-center gap-3 p-2 bg-gray-100 rounded-2xl">
-        {/* File Upload */}
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          className="hidden"
-          accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg"
-          multiple
-        />
-        <button
-          type="button"
-          onClick={() => fileInputRef.current?.click()}
-          disabled={isLoading || uploadingFile}
-          className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-gray-400 hover:text-emerald-600 hover:bg-white rounded-xl transition-colors disabled:opacity-50"
-        >
-          <Paperclip className="w-5 h-5" />
-        </button>
-
-        {/* Text Input */}
+      <div className="flex items-end gap-3 p-3 bg-gray-100 rounded-2xl">
         <textarea
           ref={textareaRef}
           value={message}
@@ -130,18 +41,16 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
           placeholder="Schreibe eine Nachricht..."
           disabled={isLoading}
           rows={1}
-          className="flex-1 px-2 py-3 bg-transparent resize-none text-[15px] text-gray-800 placeholder-gray-400 focus:outline-none disabled:opacity-50"
-          style={{ maxHeight: '150px', height: '52px' }}
+          className="flex-1 px-3 py-2 bg-white rounded-xl resize-none text-[15px] text-gray-800 placeholder-gray-400 border border-gray-200 focus:border-emerald-400 focus:outline-none disabled:opacity-50"
+          style={{ minHeight: '48px', maxHeight: '120px' }}
         />
-
-        {/* Send Button */}
         <button
           onClick={handleSubmit}
           disabled={!canSubmit}
-          className={`flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl transition-all ${
+          className={`flex-shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-colors ${
             canSubmit
               ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-              : 'text-gray-300'
+              : 'bg-gray-200 text-gray-400'
           }`}
         >
           {isLoading ? (
@@ -150,9 +59,7 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
             <Send className="w-5 h-5" />
           )}
         </button>
-        </div>
       </div>
-
       <p className="mt-3 text-xs text-gray-400 text-center">
         KI kann Fehler machen. Wichtige Infos bitte prüfen.
       </p>

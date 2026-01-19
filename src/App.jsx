@@ -5,10 +5,8 @@ function App() {
   const {
     messages,
     isLoading,
-    uploadingFile,
     error,
     sendMessage,
-    uploadFile,
     startNewChat,
   } = useChat();
 
@@ -17,10 +15,8 @@ function App() {
       <ChatView
         messages={messages}
         isLoading={isLoading}
-        uploadingFile={uploadingFile}
         error={error}
         onSend={sendMessage}
-        onFileUpload={uploadFile}
         onNewChat={startNewChat}
       />
     </div>
