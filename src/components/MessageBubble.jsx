@@ -34,7 +34,7 @@ export default function MessageBubble({ message }) {
         </p>
 
         <div
-          className={`inline-block text-left rounded-2xl px-4 py-3 ${
+          className={`inline-block text-left rounded-3xl px-5 py-4 ${
             isUser
               ? 'bg-emerald-600 text-white'
               : 'bg-white text-gray-800 shadow-md'
