@@ -152,7 +152,7 @@ export default function ChatInput({ onSend, onFileUpload, isLoading, uploadingFi
       </div>
 
       <p className="mt-3 text-xs text-gray-400 text-center">
-        KI kann Fehler machen. Wichtige Infos bitte pruefen.
+        KI kann Fehler machen. Wichtige Infos bitte prüfen.
       </p>
     </div>
   );
